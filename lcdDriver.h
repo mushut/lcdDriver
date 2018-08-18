@@ -4,7 +4,7 @@
 
 #include <string.h>
 #include <stdio.h>
-#include <avr.io.h>
+#include <avr/io.h>
 
 struct Pins {
 	int data0:1;
