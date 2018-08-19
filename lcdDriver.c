@@ -40,7 +40,10 @@ int printChar(char character)
 	gpioState.data6 = ((character & 64) != 0);
 	gpioState.data7 = ((character & 128) != 0);
 
-	/* Use gpioState struct to change pin states accordingly */
+	/* Use gpioState struct to change pin states accordingly.
+	 * If pin needs to be high -> use |=
+	 * If pin needs to be low -> use &= and ~
+	 */
 	if (gpioState.data0 == 0) {
 		PORTD &= ~_BV(PORTD0);
 	}
@@ -96,7 +99,6 @@ int printChar(char character)
 	else {
 		PORTD |= _BV(PORTD7);
 	}
-
 
 	return 0;
 }
