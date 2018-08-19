@@ -1,4 +1,4 @@
-/* Program for testint LCD driver
+/* Program for testing LCD driver
  * Aki Sipovaara 2018
  */
 
