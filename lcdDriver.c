@@ -4,6 +4,8 @@
 
 #include "lcdDriver.h"
 
+/* REMEMBER TO WRITE ZEROS AS NEEDED TO PINS! */
+
 int init(void)
 {
 	/* Initialize used GPIOs as outputs */
@@ -15,14 +17,34 @@ int init(void)
 	DDRD |= _BV(DDD5);
 	DDRD |= _BV(DDD6);
 	DDRD |= _BV(DDD7);
+
+	return 0;
 }
 
 int clearScreen(void)
 {
+	PORTD |= _BV(PORTD0);
+
+	return 0;
 }
 
-int cursor(int placement)
+int cursor(int shift)
 {
+	/* Todo: loop for shifts > 1 */
+	if (shift > 0) {
+		PORTD |= _BV(PORTD4);
+		PORTD &= ~_BV(PORTD3);
+		PORTD |= _BV(PORTD2);
+	}
+	
+	/* Todo: loop for shifts < -1 */
+	if (shift < 0) {
+		PORTD |= _BV(PORTD4);
+		PORTD &= ~_BV(PORTD3);
+		PORTD &= ~_BV(PORTD2);
+	}
+
+	return 0;
 }
 
 int printChar(char character)
@@ -109,12 +131,11 @@ int printStr(char *string)
 	 * What if string is longer than what can be printed?
 	 */
 	clearScreen();
-	cursor(0);
 
 	size_t i = 0;
 	size_t length = strlen(string);
 	for (; i < length; i++) {
-		cursor(i)
+		cursor(1);
 		printChar(*(string + i));
 	}
 
