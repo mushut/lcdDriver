@@ -1,11 +1,12 @@
-OBJS = main.o lcdDriver.o
-CFLAGS = -mmcu=atmega328p
+OBJS = main.c lcdDriver.c
+CFLAGS = -Os -DF_CPU=16000000UL -mmcu=atmega328p -o
 CC = avr-gcc
+# DIR must be given from command line
 
 all: lcdTest
 
-lcdTest: $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o 
+lcdTest:
+	$(DIR)$(CC) $(CFLAGS) test.exe $(OBJS) 
 
 clean:
-	rm lcdTest $(OBJS)
+	rm test.exe
