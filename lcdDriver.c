@@ -4,7 +4,9 @@
 
 #include "lcdDriver.h"
 
-/* REMEMBER TO WRITE ZEROS AS NEEDED TO PINS! */
+/* REMEMBER TO WRITE ZEROS AS NEEDED TO PINS!
+ * Check busy flag for internal operations of LCD
+ * Maybe delays should be used inside library to be sure write cycle works */
 
 int init(void)
 {
@@ -17,6 +19,9 @@ int init(void)
 	DDRD |= _BV(DDD5);
 	DDRD |= _BV(DDD6);
 	DDRD |= _BV(DDD7);
+
+	/* Initialize RS, R/W and E */
+	/* TBD */
 
 	return 0;
 }
