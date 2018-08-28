@@ -26,6 +26,7 @@ int init(void)
 	return 0;
 }
 
+/* Use LCDs operation for clearing the screen */
 int clearScreen(void)
 {
 	PORTD |= _BV(PORTD0);
@@ -33,6 +34,7 @@ int clearScreen(void)
 	return 0;
 }
 
+/* Does LCD screen have control for shifts that go "out of screen"? */
 int cursor(int shift)
 {
 	/* Todo: loop for shifts > 1 */
@@ -52,6 +54,8 @@ int cursor(int shift)
 	return 0;
 }
 
+/* Prints character on screen. Basic characters have same binary code. Other characters need
+ * to be configures properly */
 int printChar(char character)
 {
 	/* Remember to check that character is valid for printing! */
@@ -71,6 +75,7 @@ int printChar(char character)
 	 * If pin needs to be high -> use |=
 	 * If pin needs to be low -> use &= and ~
 	 */
+	/* Could create a function for this... */
 	if (gpioState.data0 == 0) {
 		PORTD &= ~_BV(PORTD0);
 	}
@@ -130,6 +135,7 @@ int printChar(char character)
 	return 0;
 }
 
+/* Prints char array. Uses clearScreen and printChar functions. */
 int printStr(char *string)
 {
 	/* Use printChar for printing the string
